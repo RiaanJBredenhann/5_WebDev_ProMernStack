@@ -8,6 +8,13 @@
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
 </head>
 <body>
-    
+    <div id="content"></div>
+    <script>
+        const element = React.createElement('div', {title: 'Outer div'},
+            React.createElement('h1', null, 'Hello World!')
+        );
+
+        ReactDOM.render(element, document.getElementById('content'));
+    </script>
 </body>
 </html>
