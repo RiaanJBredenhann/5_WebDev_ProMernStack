@@ -8,18 +8,25 @@ class IssueFilter extends React.Component {
 
 class IssueTable extends React.Component {
     render() {
-        const rowStyle = {border: "1px solid silver", padding: 4};
+        const issueRows = issues.map(issue => 
+            <issueRow key={issue.id} issue={issue} />
+        ); 
+
         return(
-            <table style={{borderCollapse: "collapse"}}>
+            <table className="bordered-table">
                 <thead>
                     <tr>
-                        <th style={rowStyle}>ID</th>
-                        <th style={rowStyle}>Title</th>
+                        <th>ID</th>
+                        <th>Status</th>
+                        <th>Owner</th>
+                        <th>Created</th>
+                        <th>Effort</th>
+                        <th>Due Date</th>
+                        <th>Title</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <IssueRow rowStyle={rowStyle} issue_id={1}>Error in console when clicking Add</IssueRow>
-                    <IssueRow rowStyle={rowStyle} issue_id={2}><div>Missing <b>bottom</b> border on panel</div></IssueRow>
+                    {issueRows}
                 </tbody>
             </table>
         );
