@@ -84,7 +84,6 @@ class IssueAdd extends React.Component {
             this.props.createIssue(sampleIssue);
         }, 2000);
     }
-
     render() {
         return (
             <div>This is a placeholder for a form to add an issue.</div>
@@ -96,16 +95,19 @@ class IssueList extends React.Component {
     constructor() {
         super();
         this.state = { issues: [] };
+        this.createIssue = this.createIssue.bind(this);
     }
 
     componentDidMount() {
         this.loadData();
     }
+
     loadData() {
         setTimeout(() => {
             this.setState({ issues: initialIssues });
         }, 500);
     }
+    
     createIssue(issue) {
         issue.id = this.state.issues.length + 1;
         issue.created = new Date();
@@ -113,7 +115,7 @@ class IssueList extends React.Component {
         newIssueList.push(issue);
         this.setState({ issues: newIssueList });
     }
-    
+
     render() {
         return (
             <React.Fragment>

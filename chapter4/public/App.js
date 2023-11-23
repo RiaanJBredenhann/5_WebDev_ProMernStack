@@ -119,6 +119,7 @@ var IssueList = /*#__PURE__*/function (_React$Component5) {
     _this2.state = {
       issues: []
     };
+    _this2.createIssue = _this2.createIssue.bind(_assertThisInitialized(_this2));
     return _this2;
   }
   _createClass(IssueList, [{
