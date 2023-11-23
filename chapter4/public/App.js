@@ -93,18 +93,21 @@ var IssueAdd = /*#__PURE__*/function (_React$Component4) {
   _inherits(IssueAdd, _React$Component4);
   var _super4 = _createSuper(IssueAdd);
   function IssueAdd() {
-    var _this;
     _classCallCheck(this, IssueAdd);
-    _this = _super4.call(this);
-    setTimeout(function () {
-      _this.props.createIssue(sampleIssue);
-    }, 2000);
-    return _this;
+    return _super4.call(this);
   }
   _createClass(IssueAdd, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, "This is a placeholder for a form to add an issue.");
+      return /*#__PURE__*/React.createElement("form", null, /*#__PURE__*/React.createElement("input", {
+        type: "text",
+        name: "owner",
+        placeholder: "Owner"
+      }), /*#__PURE__*/React.createElement("input", {
+        type: "text",
+        name: "title",
+        placeholder: "Title"
+      }), /*#__PURE__*/React.createElement("button", null, "Add"));
     }
   }]);
   return IssueAdd;
@@ -113,14 +116,14 @@ var IssueList = /*#__PURE__*/function (_React$Component5) {
   _inherits(IssueList, _React$Component5);
   var _super5 = _createSuper(IssueList);
   function IssueList() {
-    var _this2;
+    var _this;
     _classCallCheck(this, IssueList);
-    _this2 = _super5.call(this);
-    _this2.state = {
+    _this = _super5.call(this);
+    _this.state = {
       issues: []
     };
-    _this2.createIssue = _this2.createIssue.bind(_assertThisInitialized(_this2));
-    return _this2;
+    _this.createIssue = _this.createIssue.bind(_assertThisInitialized(_this));
+    return _this;
   }
   _createClass(IssueList, [{
     key: "componentDidMount",
@@ -130,9 +133,9 @@ var IssueList = /*#__PURE__*/function (_React$Component5) {
   }, {
     key: "loadData",
     value: function loadData() {
-      var _this3 = this;
+      var _this2 = this;
       setTimeout(function () {
-        _this3.setState({
+        _this2.setState({
           issues: initialIssues
         });
       }, 500);
