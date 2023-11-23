@@ -80,12 +80,23 @@ class IssueRow extends React.Component {
 class IssueAdd extends React.Component {
     constructor() {
         super();
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+    handleSubmit(e) {
+        e.preventDefault();
+        const form = document.forms.issueAdd;
+        const issue = {
+            owner: form.owner.value, title: form.title.value, status: 'New',
+        }
+        this.props.createIssue(issue);
+        form.owner.value = "";
+        form.title.value = "";
     }
     render() {
         return (
-            <form>
+            <form name="issueAdd" onSubmit={this.handleSubmit}>
                 <input type="text" name="owner" placeholder="Owner" />
-                <input type="text" name="title" placeholder="Title" />  
+                <input type="text" name="title" placeholder="Title" />
                 <button>Add</button>
             </form>
         );
@@ -98,17 +109,14 @@ class IssueList extends React.Component {
         this.state = { issues: [] };
         this.createIssue = this.createIssue.bind(this);
     }
-
     componentDidMount() {
         this.loadData();
     }
-
     loadData() {
         setTimeout(() => {
             this.setState({ issues: initialIssues });
         }, 500);
     }
-
     createIssue(issue) {
         issue.id = this.state.issues.length + 1;
         issue.created = new Date();
@@ -116,7 +124,6 @@ class IssueList extends React.Component {
         newIssueList.push(issue);
         this.setState({ issues: newIssueList });
     }
-
     render() {
         return (
             <React.Fragment>

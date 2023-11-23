@@ -93,13 +93,33 @@ var IssueAdd = /*#__PURE__*/function (_React$Component4) {
   _inherits(IssueAdd, _React$Component4);
   var _super4 = _createSuper(IssueAdd);
   function IssueAdd() {
+    var _this;
     _classCallCheck(this, IssueAdd);
-    return _super4.call(this);
+    _this = _super4.call(this);
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    return _this;
   }
   _createClass(IssueAdd, [{
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      e.preventDefault();
+      var form = document.forms.issueAdd;
+      var issue = {
+        owner: form.owner.value,
+        title: form.title.value,
+        status: 'New'
+      };
+      this.props.createIssue(issue);
+      form.owner.value = "";
+      form.title.value = "";
+    }
+  }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("form", null, /*#__PURE__*/React.createElement("input", {
+      return /*#__PURE__*/React.createElement("form", {
+        name: "issueAdd",
+        onSubmit: this.handleSubmit
+      }, /*#__PURE__*/React.createElement("input", {
         type: "text",
         name: "owner",
         placeholder: "Owner"
@@ -116,14 +136,14 @@ var IssueList = /*#__PURE__*/function (_React$Component5) {
   _inherits(IssueList, _React$Component5);
   var _super5 = _createSuper(IssueList);
   function IssueList() {
-    var _this;
+    var _this2;
     _classCallCheck(this, IssueList);
-    _this = _super5.call(this);
-    _this.state = {
+    _this2 = _super5.call(this);
+    _this2.state = {
       issues: []
     };
-    _this.createIssue = _this.createIssue.bind(_assertThisInitialized(_this));
-    return _this;
+    _this2.createIssue = _this2.createIssue.bind(_assertThisInitialized(_this2));
+    return _this2;
   }
   _createClass(IssueList, [{
     key: "componentDidMount",
@@ -133,9 +153,9 @@ var IssueList = /*#__PURE__*/function (_React$Component5) {
   }, {
     key: "loadData",
     value: function loadData() {
-      var _this2 = this;
+      var _this3 = this;
       setTimeout(function () {
-        _this2.setState({
+        _this3.setState({
           issues: initialIssues
         });
       }, 500);
