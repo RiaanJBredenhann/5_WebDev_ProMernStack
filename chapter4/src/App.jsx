@@ -11,7 +11,7 @@ const initialIssues = [
     {
         id: 2,
         status: 'Assigned',
-        owner: 'RavEddiean',
+        owner: 'Eddie',
         effort: 14,
         created: new Date('2018-08-16'),
         due: new Date('2018-08-30'),
@@ -113,6 +113,7 @@ class IssueList extends React.Component {
         newIssueList.push(issue);
         this.setState({ issues: newIssueList });
     }
+    
     render() {
         return (
             <React.Fragment>
