@@ -8,11 +8,10 @@ class IssueFilter extends React.Component {
 
 class IssueTable extends React.Component {
     render() {
-        const issueRows = issues.map(issue => 
-            <issueRow key={issue.id} issue={issue} />
-        ); 
-
-        return(
+        const issueRows = issues.map(issue =>
+            <IssueRow key={issue.id} issue={issue} />
+        );
+        return (
             <table className="bordered-table">
                 <thead>
                     <tr>
@@ -36,7 +35,7 @@ class IssueTable extends React.Component {
 class IssueRow extends React.Component {
     render() {
         const issue = this.props.issue;
-        return(
+        return (
             <tr>
                 <td>{issue.id}</td>
                 <td>{issue.status}</td>
@@ -61,7 +60,7 @@ class IssueAdd extends React.Component {
 
 class IssueList extends React.Component {
     render() {
-        return(
+        return (
             <React.Fragment>
                 <h1>Issue Tracker</h1>
                 <IssueFilter />
@@ -76,8 +75,8 @@ class IssueList extends React.Component {
 
 class BorderWrap extends React.Component {
     render() {
-        const borderStyle = {border: "1px solid silver", padding: 6};
-        return(
+        const borderStyle = { border: "1px solid silver", padding: 6 };
+        return (
             <div style={borderStyle}>
                 {this.props.children}
             </div>
@@ -102,8 +101,8 @@ const issues = [
         effort: 14,
         created: new Date('2018-08-16'),
         due: new Date('2018-08-30'),
-        title: 'Missing bottom border panel'
-    }
+        title: 'Missing bottom border panel',
+    },
 ]
 
 const element = <IssueList />;
