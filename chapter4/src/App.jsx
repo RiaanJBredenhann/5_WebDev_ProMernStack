@@ -9,7 +9,7 @@ const initialIssues = [
         title: 'Error in console when clicking Add',
     },
     {
-        id: 1,
+        id: 2,
         status: 'Assigned',
         owner: 'RavEddiean',
         effort: 14,
@@ -38,7 +38,7 @@ class IssueTable extends React.Component {
         super();
         this.state = { issues: []};
         setTimeout(() => {
-            this,createIssue(sampleIssue);
+            this.createIssue(sampleIssue);
         }, 2000);
     }
 

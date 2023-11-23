@@ -22,7 +22,7 @@ var initialIssues = [{
   due: undefined,
   title: 'Error in console when clicking Add'
 }, {
-  id: 1,
+  id: 2,
   status: 'Assigned',
   owner: 'RavEddiean',
   effort: 14,
@@ -61,7 +61,7 @@ var IssueTable = /*#__PURE__*/function (_React$Component2) {
       issues: []
     };
     setTimeout(function () {
-      _assertThisInitialized(_this), createIssue(sampleIssue);
+      _this.createIssue(sampleIssue);
     }, 2000);
     return _this;
   }
