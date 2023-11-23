@@ -113,5 +113,26 @@ var IssueList = /*#__PURE__*/function (_React$Component5) {
   }]);
   return IssueList;
 }(React.Component);
+var BorderWrap = /*#__PURE__*/function (_React$Component6) {
+  _inherits(BorderWrap, _React$Component6);
+  var _super6 = _createSuper(BorderWrap);
+  function BorderWrap() {
+    _classCallCheck(this, BorderWrap);
+    return _super6.apply(this, arguments);
+  }
+  _createClass(BorderWrap, [{
+    key: "render",
+    value: function render() {
+      var borderStyle = {
+        border: "1px solid silver",
+        padding: 6
+      };
+      return /*#__PURE__*/React.createElement("div", {
+        style: borderStyle
+      }, this.props.children);
+    }
+  }]);
+  return BorderWrap;
+}(React.Component);
 var element = /*#__PURE__*/React.createElement(IssueList, null);
 ReactDOM.render(element, document.getElementById('contents'));

@@ -57,7 +57,18 @@ class IssueList extends React.Component {
                 <hr />
                 <IssueAdd />
             </React.Fragment>
-        )
+        );
+    }
+}
+
+class BorderWrap extends React.Component {
+    render() {
+        const borderStyle = {border: "1px solid silver", padding: 6};
+        return(
+            <div style={borderStyle}>
+                {this.props.children}
+            </div>
+        );
     }
 }
 
