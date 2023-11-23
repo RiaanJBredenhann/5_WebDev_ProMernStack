@@ -61,12 +61,8 @@ var IssueRow = /*#__PURE__*/function (_React$Component3) {
   _createClass(IssueRow, [{
     key: "render",
     value: function render() {
-      var style = this.props.rowStyle;
-      return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", {
-        style: style
-      }, this.props.issue_id), /*#__PURE__*/React.createElement("td", {
-        style: style
-      }, this.props.children));
+      var issue = this.props.issue;
+      return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, issue.id), /*#__PURE__*/React.createElement("td", null, issue.status), /*#__PURE__*/React.createElement("td", null, issue.owner), /*#__PURE__*/React.createElement("td", null, issue.created.toDateString()), /*#__PURE__*/React.createElement("td", null, issue.effort), /*#__PURE__*/React.createElement("td", null, issue.due ? issue.due.toDateString() : ''), /*#__PURE__*/React.createElement("td", null, issue.title));
     }
   }]);
   return IssueRow;

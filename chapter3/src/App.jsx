@@ -35,15 +35,21 @@ class IssueTable extends React.Component {
 
 class IssueRow extends React.Component {
     render() {
-        const style = this.props.rowStyle;
+        const issue = this.props.issue;
         return(
             <tr>
-                <td style={style}>{this.props.issue_id}</td>
-                <td style={style}>{this.props.children}</td>
+                <td>{issue.id}</td>
+                <td>{issue.status}</td>
+                <td>{issue.owner}</td>
+                <td>{issue.created.toDateString()}</td>
+                <td>{issue.effort}</td>
+                <td>{issue.due ? issue.due.toDateString() : ''}</td>
+                <td>{issue.title}</td>
             </tr>
         );
     }
 }
+
 
 class IssueAdd extends React.Component {
     render() {
