@@ -38,7 +38,27 @@ var IssueTable = /*#__PURE__*/function (_React$Component2) {
   _createClass(IssueTable, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("table", null, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "ID"), /*#__PURE__*/React.createElement("th", null, "Title"))), /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement(IssueRow, null), /*#__PURE__*/React.createElement(IssueRow, null)));
+      var rowStyle = {
+        border: "1px solid silver",
+        padding: 4
+      };
+      return /*#__PURE__*/React.createElement("table", {
+        style: {
+          borderCollapse: "collapse"
+        }
+      }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", {
+        style: rowStyle
+      }, "ID"), /*#__PURE__*/React.createElement("th", {
+        style: rowStyle
+      }, "Title"))), /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement(IssueRow, {
+        rowStyle: rowStyle,
+        issue_id: 1,
+        issue_title: "Error in console when clicking Add"
+      }), /*#__PURE__*/React.createElement(IssueRow, {
+        rowStyle: rowStyle,
+        issue_id: 2,
+        issue_title: "Missing bottom border on panel"
+      })));
     }
   }]);
   return IssueTable;
