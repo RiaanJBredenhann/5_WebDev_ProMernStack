@@ -132,5 +132,22 @@ var BorderWrap = /*#__PURE__*/function (_React$Component6) {
   }]);
   return BorderWrap;
 }(React.Component);
+var issues = [{
+  id: 1,
+  status: 'New',
+  owner: 'Ravan',
+  effort: 5,
+  created: new Date('2018-08-15'),
+  due: undefined,
+  title: 'Error in console when clicking Add'
+}, {
+  id: 1,
+  status: 'Assigned',
+  owner: 'RavEddiean',
+  effort: 14,
+  created: new Date('2018-08-16'),
+  due: new Date('2018-08-30'),
+  title: 'Missing bottom border panel'
+}];
 var element = /*#__PURE__*/React.createElement(IssueList, null);
 ReactDOM.render(element, document.getElementById('contents'));
