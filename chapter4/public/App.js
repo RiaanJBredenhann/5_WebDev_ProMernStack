@@ -30,11 +30,6 @@ var initialIssues = [{
   due: new Date('2018-08-30'),
   title: 'Missing bottom border panel'
 }];
-var sampleIssue = {
-  status: 'New',
-  owner: 'Pieta',
-  title: 'Completion date should be optional'
-};
 var IssueFilter = /*#__PURE__*/function (_React$Component) {
   _inherits(IssueFilter, _React$Component);
   var _super = _createSuper(IssueFilter);

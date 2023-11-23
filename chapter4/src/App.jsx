@@ -19,12 +19,6 @@ const initialIssues = [
     },
 ]
 
-const sampleIssue = {
-    status: 'New',
-    owner: 'Pieta',
-    title: 'Completion date should be optional',
-};
-
 class IssueFilter extends React.Component {
     render() {
         return (
