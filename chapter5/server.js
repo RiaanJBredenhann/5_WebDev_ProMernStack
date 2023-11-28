@@ -1,6 +1,7 @@
 const express = require('express');
 const fs = require('fs');
 const { ApolloServer } = require('apollo-server-express');
+const { GraphQLScalarType } = require('graphql');
 
 let aboutMessage = "Issue TRacker API v1.0";
 
@@ -25,6 +26,14 @@ const issuesDB = [
     },
 ];
 
+const GraphQLDate = new GraphQLScalarType({
+    name: 'GraphQLDate',
+    description: 'A Date() type in GrapgQL as scalar',
+    serialize(value) {
+        return value.toISOString();
+    }
+});
+
 const resolvers = {
     Query: {
         about: () => aboutMessage,
@@ -33,6 +42,7 @@ const resolvers = {
     Mutation: {
         setAboutMessage,
     },
+    GraphQLDate,
 };
 
 function setAboutMessage(_, { message }) {
