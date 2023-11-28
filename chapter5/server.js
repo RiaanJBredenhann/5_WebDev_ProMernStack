@@ -65,7 +65,7 @@ function issueList() {
     return issuesDB;
 }
 
-function validateIssue(_, { issue }) {
+function issueValidate(_, { issue }) { //validateIssue
     const errors = [];
 
     if (issue.title.length < 3) {
