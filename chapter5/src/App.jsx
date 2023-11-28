@@ -1,3 +1,5 @@
+const dateRegex = new RegExp('^\\d\\d\\d\\d-\\d\\d-\\d\\d');
+
 class IssueFilter extends React.Component {
     render() {
         return (
@@ -30,6 +32,11 @@ function IssueTable(props) {
     );
 }
 
+function jsonDateReviver(key, value) {
+    if (dateRegex.test(value)) return new Date(value);
+    return value;
+}
+
 function IssueRow(props) {
     const issue = props.issue;
     return (
@@ -37,9 +44,9 @@ function IssueRow(props) {
             <td>{issue.id}</td>
             <td>{issue.status}</td>
             <td>{issue.owner}</td>
-            <td>{issue.created}</td>
+            <td>{issue.created.toDateString()}</td>
             <td>{issue.effort}</td>
-            <td>{issue.due}</td>
+            <td>{issue.due ? issue.due.toDateString() : ' '}</td>
             <td>{issue.title}</td>
         </tr>
     );
@@ -78,9 +85,11 @@ class IssueList extends React.Component {
         this.state = { issues: [] };
         this.createIssue = this.createIssue.bind(this);
     }
+
     componentDidMount() {
         this.loadData();
     }
+
     async loadData() {
         const query = `query {
             issueList {
@@ -100,7 +109,8 @@ class IssueList extends React.Component {
             body: JSON.stringify({ query })
         });
 
-        const result = await response.json();
+        const body = await response.text();
+        const result = JSON.parse(body, jsonDateReviver);
         this.setState({ issues: result.data.issueList });
     }
 
@@ -111,7 +121,7 @@ class IssueList extends React.Component {
         newIssueList.push(issue);
         this.setState({ issues: newIssueList });
     }
-    
+
     render() {
         return (
             <React.Fragment>
