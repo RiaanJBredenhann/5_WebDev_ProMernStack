@@ -75,16 +75,16 @@ function validateIssue(_, { issue }) {
     if (issue.status == 'Assigned' && !issue.owner) {
         errors.push('Field "owner" is required when status is "Assigned"');
     }
-    
+
     if (errors.length > 0) {
         throw new UserInputError('Invalid input(s)', { errors });
     }
 }
 
 function issueAdd(_, { issue }) {
+    issueValidate(issue);
     issue.created = new Date();
     issue.id = issuesDB.length + 1;
-    if (issue.status == undefined) issue.status = 'New';
     issuesDB.push(issue);
     return issue;
 }
@@ -92,6 +92,10 @@ function issueAdd(_, { issue }) {
 const server = new ApolloServer({
     typeDefs: fs.readFileSync('./server/schema.graphql', 'utf-8'),
     resolvers,
+    formatError: error => {
+        console.log(error);
+        return error;
+    },
 });
 
 const app = express();
