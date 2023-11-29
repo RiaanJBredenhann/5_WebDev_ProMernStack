@@ -82,7 +82,7 @@ function issueValidate(_, { issue }) { //validateIssue
 }
 
 function issueAdd(_, { issue }) {
-    issueValidate(issue);
+    issueValidate(_, { issue });
     issue.created = new Date();
     issue.id = issuesDB.length + 1;
     issuesDB.push(issue);
