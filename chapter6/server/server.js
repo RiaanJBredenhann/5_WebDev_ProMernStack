@@ -7,11 +7,11 @@ const { MongoClient } = require('mongodb');
 const url = 'mongodb+srv://riaan:pF08vCAjhgfITunB@cluster2.3ok5qwz.mongodb.net/issuetracker?retryWrites=true';
 
 let db;
-let aboutMessage = "Issue TRacker API v1.0";
+let aboutMessage = "Issue Tracker API v1.0";
 
 const GraphQLDate = new GraphQLScalarType({
     name: 'GraphQLDate',
-    description: 'A Date() type in GrapgQL as scalar',
+    description: 'A Date() type in GraphQL as a scalar',
     serialize(value) {
         return value.toISOString();
     },
@@ -44,12 +44,12 @@ function setAboutMessage(_, { message }) {
 }
 
 async function issueList() {
-    return issuesDB;
+    // return issuesDB;
     const issues = await db.collection('issues').find({}).toArray();
     return issues;
 }
 
-function issueValidate(_, { issue }) { //validateIssue
+function issueValidate(issue) { //validateIssue  // _, { issue }
     const errors = [];
 
     if (issue.title.length < 3) {
@@ -75,7 +75,7 @@ async function getNextSequence(name) {
 }
 
 async function issueAdd(_, { issue }) {
-    issueValidate(_, { issue });
+    issueValidate(issue); // _, { issue }
     issue.created = new Date();
     issue.id = await getNextSequence('issues');
     const result = await db.collection('issues').insertOne(issue);
