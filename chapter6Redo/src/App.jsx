@@ -1,47 +1,13 @@
-
 const dateRegex = new RegExp('^\\d\\d\\d\\d-\\d\\d-\\d\\d');
 
-function jsonDateReviver(key, value) {
-    if (dateRegex.test(value)) return new Date(value);
-    return value;
-}
-
-//displaying errors
-async function graphQLFetch(query, variables = {}) {
-    try {
-        const response = await fetch('/graphql', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ query, variables })
-        });
-        const body = await response.text();
-        const result = JSON.parse(body, jsonDateReviver);
-        if (result.errors) {
-            const error = result.errors[0];
-            if (error.extensions.code == 'BAD_USER_INPUT') {
-                const details = error.extensions.exception.errors.join('\n ');
-                alert(`${error.message}:\n ${details}`);
-            } else {
-                alert(`${error.extensions.code}: ${error.message}`);
-            }
-        }
-        return result.data;
-    } catch (e) {
-        alert(`Error in sending data to server: ${e.message}`);
-    }
-}
-
-//issue filter comp
 class IssueFilter extends React.Component {
     render() {
         return (
-            <div>This is a placeholder for the issue filter.</div>
+            <div>This is a placeholder for an issue filter</div>
         );
     }
 }
 
-
-//issue table comp
 function IssueTable(props) {
     const issueRows = props.issues.map(issue =>
         <IssueRow key={issue.id} issue={issue} />
@@ -66,19 +32,11 @@ function IssueTable(props) {
     );
 }
 
-//border wrap cpmponent
-class BorderWrap extends React.Component {
-    render() {
-        const borderedStyle = { border: "1px solid silver", padding: 6 };
-        return (
-            <div style={borderedStyle}>
-                {this.props.children}
-            </div>
-        );
-    }
+function jsonDateReviver(key, value) {
+    if (dateRegex.test(value)) return new Date(value);
+    return value;
 }
 
-//issue row comp
 function IssueRow(props) {
     const issue = props.issue;
     return (
@@ -94,7 +52,7 @@ function IssueRow(props) {
     );
 }
 
-//issue add comp
+
 class IssueAdd extends React.Component {
     constructor() {
         super();
@@ -105,11 +63,14 @@ class IssueAdd extends React.Component {
         e.preventDefault();
         const form = document.forms.issueAdd;
         const issue = {
-            owner: form.owner.value, title: form.title.value,
+            owner: form.owner.value,
+            title: form.title.value,
+            status: 'New',
             due: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 10),
         }
         this.props.createIssue(issue);
-        form.owner.value = ""; form.title.value = "";
+        form.owner.value = "";
+        form.title.value = "";
     }
 
     render() {
@@ -123,7 +84,34 @@ class IssueAdd extends React.Component {
     }
 }
 
-//issue list comp
+async function graphQLFetch(query, variables = {}) {
+    try {
+        const response = await fetch('/graphql', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ query, variables })
+        });
+
+        const body = await response.text();
+        const result = JSON.parse(body, jsonDateReviver);
+
+        if (result.errors) {
+            const error = result.errors[0];
+
+            if (error.extensions.code == 'BAD_USER_INPUT') {
+                const details = error.extensions.exception.errors.join('\n ');
+                alert(`${error.message}:\n ${details}`);
+            } else {
+                alert(`${error.extensions.code}: ${error.message}`);
+            }
+        }
+        return result.data;
+
+    } catch (e) {
+        alert(`Error in sending data to server: ${e.message}`);
+    }
+}
+
 class IssueList extends React.Component {
     constructor() {
         super();
@@ -134,34 +122,39 @@ class IssueList extends React.Component {
     componentDidMount() {
         this.loadData();
     }
-//api intengration, query the issue list and fetch from graphql
+
     async loadData() {
         const query = `query {
             issueList {
-            id title status owner
-            created effort due
+                id 
+                title 
+                status 
+                owner
+                created 
+                effort 
+                due
             }
-            }`;
+        }`;
 
+        const data = await graphQLFetch(query);
 
-            const data = await graphQLFetch(query);
-            if (data) {
+        if (data) {
             this.setState({ issues: data.issueList });
-            }
+        }
     }
-
 
     async createIssue(issue) {
         const query = `mutation issueAdd($issue: IssueInputs!) {
             issueAdd(issue: $issue) {
-            id
+                id
             }
-            }`;
+        }`;
 
-            const data = await graphQLFetch(query, { issue });
-            if (data) {
+        const data = await graphQLFetch(query, { issue });
+        
+        if (data) {
             this.loadData();
-            }
+        }
     }
 
     render() {
@@ -174,9 +167,20 @@ class IssueList extends React.Component {
                 <hr />
                 <IssueAdd createIssue={this.createIssue} />
             </React.Fragment>
-
         );
     }
 }
+
+class BorderWrap extends React.Component {
+    render() {
+        const borderStyle = { border: "1px solid silver", padding: 6 };
+        return (
+            <div style={borderStyle}>
+                {this.props.children}
+            </div>
+        );
+    }
+}
+
 const element = <IssueList />;
 ReactDOM.render(element, document.getElementById('contents'));
